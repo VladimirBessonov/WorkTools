@@ -50,8 +50,7 @@ int main() {
     double lon = 0.0;
 
     char gpsframe[16];
-    memcpy(&gpsframe[0], &lat, 8);
-    memcpy(&gpsframe[8], &lon, 8);
+   
 
     sockaddr_in server;
     server.sin_family = AF_INET;
@@ -67,6 +66,8 @@ int main() {
             auto position = geolocator.GetGeopositionAsync().get();
             lat = position.Coordinate().Latitude();
             lon = position.Coordinate().Longitude();
+            memcpy(&gpsframe[0], &lat, 8);
+            memcpy(&gpsframe[8], &lon, 8);
          //   std::cout << " ALT: " << position.Coordinate().Altitude().Value() << std::endl;
                     //    int sendOk = sendto(out, s.c_str(), s.size() + 1 , 0, (sockaddr*)&server, sizeof(server));
             int sendOk = sendto(out, gpsframe, sizeof(gpsframe), 0, (sockaddr*)&server, sizeof(server));
