@@ -107,18 +107,18 @@ int main() {
             try { /* */ 
                 auto position = geolocator.GetGeopositionAsync().get();
                 auto Setelite = position.Coordinate().SatelliteData();
-                double PDOP =  Setelite.PositionDilutionOfPrecision().Value();
+               // double PDOP =  Setelite.PositionDilutionOfPrecision().Value();
                 lat = position.Coordinate().Latitude();
                 lon = position.Coordinate().Longitude();
                
-                GeocoordinateSatelliteData setelite();
+            //    GeocoordinateSatelliteData setelite();
                 
 
                 memcpy(&gpsframe[0], &lat, 8);
                 memcpy(&gpsframe[8], &lon, 8);
 
                 int sendOk = sendto(out, gpsframe, sizeof(gpsframe), 0, (sockaddr*)&server, sizeof(server));
-                std::cout << "LAT: " << lat << " LON: " << lon << "PDOP" << PDOP << std::endl;
+                std::cout << "LAT: " << lat << " LON: " << lon <<  std::endl;
                 if (sendOk == SOCKET_ERROR) {
                     std::cout << "" << std::endl;
                 }
