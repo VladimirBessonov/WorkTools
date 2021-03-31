@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ibaPdaPluginInterface</name>
+    </assembly>
+    <members>
+        <member name="T:iba.Expressions.Plugin.ResultTypeEnum">
+            <summary>
+            Enumeration of the possible result types of a function
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.ResultTypeEnum.Analog">
+            <summary>
+            The result of the function is an analog signal
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.ResultTypeEnum.Digital">
+            <summary>
+            The result of the function is a digital signal
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.ResultTypeEnum.Invariant">
+            <summary>
+            The result of the function is of the same type as the first function argument
+            </summary>
+        </member>
+        <member name="T:iba.Expressions.Plugin.PluginFunctionInfo">
+            <summary>
+            Class that describes a function
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.PluginFunctionInfo.Name">
+            <summary>
+            Function name
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.PluginFunctionInfo.MinArguments">
+            <summary>
+            Minimal number of function arguments
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.PluginFunctionInfo.MaxArguments">
+            <summary>
+            Maximal number of function arguments
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.PluginFunctionInfo.ResultType">
+            <summary>
+            The result type of the function
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.PluginFunctionInfo.Prototype">
+            <summary>
+            Function prototype e.g. Add('expr1', 'expr2')
+            </summary>
+        </member>
+        <member name="F:iba.Expressions.Plugin.PluginFunctionInfo.Description">
+            <summary>
+            Function description
+            </summary>
+        </member>
+        <member name="T:iba.Expressions.Plugin.IPlugin">
+            <summary>
+            Interface implemented by a plugin
+            </summary>
+        </member>
+        <member name="M:iba.Expressions.Plugin.IPlugin.GetFunctions">
+            <summary>
+            Return a list of all functions implemented by this plugin
+            </summary>
+            <returns>functions implemented by this plugin</returns>
+        </member>
+        <member name="M:iba.Expressions.Plugin.IPlugin.CreateFunctionObject(System.String)">
+            <summary>
+            Create a function object that implements the specified function
+            </summary>
+            <param name="functionName">the name of the function to create</param>
+            <returns>a function object</returns>
+        </member>
+        <member name="M:iba.Expressions.Plugin.IPlugin.ClearAllFunctionObjects">
+            <summary>
+            This function gets called when the created function objects are no 
+            longer needed and can be removed. The function objects should
+            release all the resources they might have.
+            </summary>
+        </member>
+        <member name="P:iba.Expressions.Plugin.IPlugin.Name">
+            <summary>
+            Friendly name of this plugin
+            </summary>
+        </member>
+        <member name="T:iba.Expressions.Plugin.IPluginFunction">
+            <summary>
+            Interface implemented by an exposed function
+            </summary>
+        </member>
+        <member name="M:iba.Expressions.Plugin.IPluginFunction.Initialize(System.Int64,System.Int64,System.Double[])">
+            <summary>
+            This function gets called once at the start of the acquisition in ibaPDA.
+            The function object should initialize itself.
+            </summary>
+            <param name="xBegin">timestamp of first sample (expressed in 100ns)</param>
+            <param name="xBase">timebase of the arguments and also of the result (expressed in 100ns)</param>
+            <param name="inputs">the first value of every argument</param>
+        </member>
+        <member name="M:iba.Expressions.Plugin.IPluginFunction.Calculate(System.Int64,System.Double[])">
+            <summary>
+            This function gets called for each sample. It gets the values of the 
+            arguments as input and it must calculate the result of the function.
+            </summary>
+            <param name="x">timestamp of the current sample (expressed in 100ns)</param>
+            <param name="inputs">the values of all arguments at this timestamp</param>
+            <returns>the result of the function</returns>
+        </member>
+        <member name="M:iba.Expressions.Plugin.IPluginFunctionWithText.Initialize(System.Int64,System.Int64,System.Double[],System.String[])">
+            <summary>
+            This function gets called once at the start of the acquisition in ibaPDA.
+            The function object should initialize itself.
+            </summary>
+            <param name="xBegin">timestamp of first sample (expressed in 100ns)</param>
+            <param name="xBase">timebase of the arguments and also of the result (expressed in 100ns)</param>
+            <param name="inputs">the first value of every non-text argument</param>
+            <param name="textInputs">the first value of every text argument</param>
+        </member>
+        <member name="M:iba.Expressions.Plugin.IPluginFunctionWithText.Calculate(System.Int64,System.Double[],System.String[])">
+            <summary>
+            This function gets called for each sample. It gets the values of the 
+            arguments as input and it must calculate the result of the function.
+            </summary>
+            <param name="x">timestamp of the current sample (expressed in 100ns)</param>
+            <param name="inputs">the values of all non-text arguments at this timestamp</param>
+            <param name="textInputs">the values of all text arguments at this timestamp</param>
+            <returns>the result of the function</returns>
+        </member>
+    </members>
+</doc>
